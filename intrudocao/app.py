@@ -1,11 +1,12 @@
-import re
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, url_for, render_template
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+Bootstrap(app)
 
 @app.route("/")
 def index():
-    return "Página Inicial"
+    return render_template("index.html")
 
 @app.route("/redirect")
 def redirecting():
