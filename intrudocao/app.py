@@ -4,9 +4,11 @@ from flask_bootstrap import Bootstrap
 app = Flask(__name__)
 Bootstrap(app)
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/redirect")
 def redirecting():
@@ -23,10 +25,11 @@ def posts(id):
         referrer=request.referrer,
         method=request.method,
         title=title,
-        id=id if id else 0
+        id=id if id else 0,
     )
 
     return data
+
 
 if __name__ == "__main__":
     app.run(debug=True)

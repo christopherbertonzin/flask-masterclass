@@ -1,3 +1,6 @@
 {
-    "python.pythonPath": "C:\\Users\\berto\\OneDrive\\Documentos\\dev\\flask-masterclass\\.flask-masterclass\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\berto\\OneDrive\\Documentos\\dev\\flask-masterclass\\.flask-masterclass\\Scripts\\python.exe",
+    "eslint.format.enable": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
 }
