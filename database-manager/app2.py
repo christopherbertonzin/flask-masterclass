@@ -7,22 +7,19 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-# ======= Models ========
-
+# ================== Models ==================
 
 class User(db.Model):
-    # __tablename__ = "users"
+    #__tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(84), nullable=False)
     email = db.Column(db.String(84), nullable=False, unique=True, index=True)
-    password = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable = False)
 
     def __repr__(self) -> str:
         return self.name
 
-
-# ======= Routes ========
-
+# ================== Routes ==================
 
 @app.route("/")
 def index():
@@ -35,8 +32,7 @@ def delete(id):
     user = User.query.filter_by(id=id).first()
     db.session.delete(user)
     db.session.commit()
-    return redirect("/")
-
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)
