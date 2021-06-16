@@ -2,5 +2,9 @@
     "python.pythonPath": "C:\\Users\\berto\\OneDrive\\Documentos\\dev\\flask-masterclass\\.flask-masterclass\\Scripts\\python.exe",
     "eslint.format.enable": true,
     "editor.formatOnSave": true,
-    "editor.formatOnPaste": true
+    "editor.formatOnPaste": true,
+    "python.linting.banditEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": true
 }
