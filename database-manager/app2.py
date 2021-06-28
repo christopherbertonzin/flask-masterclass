@@ -1,15 +1,19 @@
 from flask import Flask, render_template, url_for, redirect, request
+from flask_login.utils import login_user
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, LoginManager, login_required
+from flask_login import UserMixin, LoginManager, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "secret_key"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
 # ================== Models ==================
+
+
 @login_manager.user_loader
 def current_user(user_id):
     return User.query.get(user_id)
@@ -47,7 +51,7 @@ def index():
 
 
 @app.route("/user/<int:id>")
-# @login_required
+@login_required
 def unique(id):
     user = User.query.get(id)
     return render_template("user.html", user=user)
@@ -80,7 +84,29 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    pass
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            return redirect(url_for("login"))
+
+        if not check_password_hash(user.password, password):
+            return redirect(url_for("login"))
+
+        login_user(user)
+        return redirect(url_for("index"))
+
+    return render_template("login.html")
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
